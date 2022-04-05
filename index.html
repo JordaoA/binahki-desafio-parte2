@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>gráfico base</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+  </head>
+  <body>
+    <h1></h1>
+    <canvas id="myChart" width="400" height="200"></canvas>
+
+    <script>
+      window.addEventListener('load', setup);
+      
+      async function setup() {
+        const ctx = document.getElementById('myChart').getContext('2d');
+        const metricas = await getData();
+        const myChart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: ['metrica1', 'metrica2', 'metrica3'],
+            datasets: [
+              {
+                label: 'test ',
+                data: [10,21,5,54,69,42,0],
+                borderColor: 'rgba(255, 99, 132, 1)',
+                backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                borderWidth: 1
+              }
+            ]
+          },
+          options: {}
+        });
+      }
+
+      async function getData() {
+        const response = await fetch('data/Input v2.csv');
+        const data = await response.text();
+        return { data };
+      }
+    </script>
+  </body>
+</html>
